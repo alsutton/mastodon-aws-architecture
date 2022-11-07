@@ -80,7 +80,7 @@ ElastiCache will scale well beyond our needs by increasing the instance sizes, s
 
 #### Initial Setup
 
-To support multiple concurrent EC2 instances we would need a shared storage are, and Mastodon
+To support multiple concurrent EC2 instances we would need a shared storage area, and Mastodon
 includes S3 support, which made this a simple choice. The only part which was slightly confusing
 was the question about serving through our own domain (the easiest answer is to say 'No'). 
 
