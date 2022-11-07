@@ -13,6 +13,8 @@ reliability, host your own on a VPS.
 
 If you have improvement ideas for this document please submit a PR.
 
+Current Open Question; [Terraform/Pulumni/Something-Else to make this into a template for folk](https://github.com/alsutton/mastodon-aws-architecture/issues/1)
+
 ## Design
 
 The design is a two-tier design with a load balancer in front of it. This design
