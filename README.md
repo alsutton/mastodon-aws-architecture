@@ -141,7 +141,7 @@ ExecStart=/home/mastodon/.rbenv/shims/bundle exec sidekiq -c 25 -q default -q pu
 
 We also use a self-signed certificate to support HTTPS. Mastodon had the ability to run, 
 in production, without an HTTPS configuration, [removed](https://github.com/mastodon/mastodon/pull/6061),
-and to avoid making our configuration more complex elsewhere, we use as self-signed cert
+and to avoid making our configuration more complex elsewhere, so we use as self-signed cert
 between the load balancer and the instances.
 
 ### Internet exposure
