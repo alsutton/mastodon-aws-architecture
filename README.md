@@ -102,7 +102,7 @@ small cost granularity in terms of supporting more users if we need to.
 
 ### Sceduling instance - There can be only one
 
-We one run instance solely to handle the `scheduler` queue. The only different between
+We run one instance solely to handle the `scheduler` queue. The only different between
 this and our other instances is that it runs the unmodified version of the `mastodon-sidekiq.service`
 systemd script and *no other mastodon init scripts*.
 
