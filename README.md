@@ -29,9 +29,8 @@ is the Data Storage Layer, then Application Layer, then exposing it to the Inter
 ## Data Storage Layer (Aurora, ElastiCache, S3)
 
 We initially only used S3 for storage and seperated PostgreSQL out from each Masotdon instance, but then I found out that the
-timeline for the accounts users follow is stored in Redis for the reasons mentioned below in the ElastiCache section.
-
-We're running multiple Masotdon EC2 instances for the same domain, which meant that folk would sometimes 
+toots for the accounts users follow is stored in Redis. This meant that, becausew we're running multiple Masotdon EC2 
+instances for the same domain, which meant that folk would sometimes 
 get a varying toot list for their home page, and when the EC2 instances were rolled for a configuration
 update, their whole home toot-list would be lost. If this is acceptable to you (e.g. on your own instance
 and you're not worried about it), you could keep Redis in-instance.
