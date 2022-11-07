@@ -156,7 +156,7 @@ and only expose the web services via an AWS [Application Load Balancer](https://
 
 We have listeners on the ALB for HTTP and HTTPS. The HTTPS listener uses a publicly verifiable certificate 
 issued by AWS, and both listeners forward to a separate Target Group which in turn
-points to the relevant port on the Auto Scaling Group instances. One key point we found
+point to the relevant port on the Auto Scaling Group instances. One key point we found
 was that the Target Group should monitor `/robots.txt` instead of `/` to ensure that 
 it doesn't think an instance in unhealthy because it's returning a redirect for `/`.
 
