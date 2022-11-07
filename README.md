@@ -154,7 +154,7 @@ a public IP address.
 [bastion host](https://en.wikipedia.org/wiki/Bastion_host) to connect to them via SSH,
 and only expose the web services via an AWS [Application Load Balancer](https://aws.amazon.com/elasticloadbalancing/application-load-balancer/).
 
-We have listeners on the ALB for HTTP and HTTPS. The HTTPS listener uses a public certified 
+We have listeners on the ALB for HTTP and HTTPS. The HTTPS listener uses a publicly verifiable certificate 
 issued by AWS, and both listeners forward to a separate Target Group which in turn
 points to the relevant port on the Auto Scaling Group instances. One key point we found
 was that the Target Group should monitor `/robots.txt` instead of `/` to ensure that 
