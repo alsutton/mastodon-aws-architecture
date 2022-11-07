@@ -60,7 +60,7 @@ which is a core part of the Mastodon system, has [not recommended using Redis in
 since problems were reported back in 2018. 
 
 I did try a MemoryDB Redis instance, and an ElastiCache clustered instance, and hit the `CROSSSLOT` error
-mentioned in the bug. This is why we're not running a 3 replica Elasticache Redis Instance.
+mentioned in the bug. This is why we're using a 3 replica Elasticache Redis Instance.
 
 #### Scaling-up
 
