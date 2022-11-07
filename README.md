@@ -28,7 +28,7 @@ is the Data Storage Layer, then Application Layer, then exposing it to the Inter
 
 ## Data Storage Layer (Aurora, ElastiCache, S3)
 
-We unitially only used S3 for storage and seperated PostgreSQL out from each Masotdon instance, but then I found out that the
+We initially only used S3 for storage and seperated PostgreSQL out from each Masotdon instance, but then I found out that the
 timeline for the accounts users follow is stored in Redis. 
 
 We're running multiple Masotdon EC2 instances for the same domain, which meant that folk would sometimes 
