@@ -51,6 +51,10 @@ Unfortunately Mastodon doesn't have native separation between Write and Read loc
 use a special driver (Makara) to split reads and writes, but, with Aurora, that shouldn't
 be necessary unless you're running a **really** big instance.
 
+#### Current Instance Type
+
+1x `Serverless v2 (0.5 - 5 ACUs)`
+
 ### Redis - [ElastiCache Redis in non-clustered mode](https://aws.amazon.com/elasticache/?nc=sn&loc=0)
 
 #### Initial Setup
@@ -65,6 +69,10 @@ mentioned in the bug. This is why we're using a 3 replica Elasticache Redis Inst
 #### Scaling-up
 
 ElastiCache will scale well beyond our needs by increasing the instance sizes, so that's our path for now.
+
+#### Current Instance Type
+
+3x `cache.t4g.small` (primary + 2 replicas)
 
 ### S3
 
@@ -100,6 +108,10 @@ You could try to integrate this into your webservers, but, for us, it was easier
 allocate a single instance which will process all queues, and then configure our web
 server launch template with a configuration which processes everything except the `scheduler`
 queue.
+
+#### Current Instance Type
+
+`t4g.small`
 
 ### Main Instances
 
@@ -145,6 +157,10 @@ issued by AWS, and both listeners forward to a separate Target Group which in tu
 points to the relevant port on the Auto Scaling Group instances. One key point we found
 was that the Target Group should monitor `/robots.txt` instead of `/` to ensure that 
 it doesn't think an instance in unhealthy because it's returning a redirect for `/`.
+
+#### Current Instance Type
+
+2x `t4g.small` (Autoscaling hasn't gone past this)
 
 ## Summary
 
