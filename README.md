@@ -118,7 +118,7 @@ queue.
 ### Main Instances
 
 We have an EC2 Auto Scaling Group which uses the latest AMI for our installation. The
-ASG is configured to scale upwards a desired level of 2 instances (so that one can 
+ASG is configured to scale upwards from a minimum & desired level of 2 instances (so that one can 
 fall over unexpectedly and not affect service).
 
 The launch template includes an auto-allocated public IP, which allows instances
