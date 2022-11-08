@@ -63,10 +63,12 @@ be necessary unless you're running a **really** big instance.
 
 Initially I looked at [MemoryDB](https://aws.amazon.com/memorydb/), but [Sidekiq](https://sidekiq.org/), 
 which is a core part of the Mastodon system, has [not recommended using Redis in cluster mode](https://github.com/mperham/sidekiq/issues/3454#issuecomment-405025735)
-since problems were reported back in 2018. 
+since problems were reported back in 2018. I did try a MemoryDB Redis instance, and an ElastiCache clustered instance, and hit 
+the `CROSSSLOT` error mentioned in the bug, so we have to use a non-cluster configuration.
 
-I did try a MemoryDB Redis instance, and an ElastiCache clustered instance, and hit the `CROSSSLOT` error
-mentioned in the bug. This is why we're using a 3 replica Elasticache Redis Instance.
+There's also a parameter to change from the defaults. In the ElastiCache console you'll need to create a new
+parameter group and change the default value of `maxmemory-policy` from `volatile-lru` to `noeviction`. Using
+the `noeviction` policy is a [recommendation from Sidekiqs' authors](https://github.com/mperham/sidekiq/wiki/Using-Redis#memory).
 
 #### Scaling-up
 
