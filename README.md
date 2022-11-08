@@ -74,7 +74,7 @@ ElastiCache will scale well beyond our needs by increasing the instance sizes, s
 
 #### Current Instance Type
 
-3x `cache.t4g.small` (primary + 2 replicas)
+2x `cache.t4g.small` (primary + replica)
 
 ### S3
 
