@@ -107,7 +107,7 @@ small cost granularity in terms of supporting more users if we need to.
 We run one instance solely to handle the `scheduler` queue. Initially we had a `t4g.small` 
 instance processing all the queues (including scheduler), but, after looking at the load 
 on the queues for a few days, we realised our main instances were easily handling the 
-load on the queues the process, so the scheduler could be cost optimized. 
+load on the queues, so the scheduler could be cost optimized. 
 
 We now use a `t2.micro` instance which puts it in the 
 [AWS EC2 free tier](https://aws.amazon.com/ec2/pricing/?loc=ft#Free_tier). We 
