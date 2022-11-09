@@ -104,18 +104,34 @@ small cost granularity in terms of supporting more users if we need to.
 
 ### Sceduling instance - There can be only one
 
-We run one instance solely to handle the `scheduler` queue. The only difference between
-this and our other instances is that it runs the unmodified version of the `mastodon-sidekiq.service`
-systemd script and *no other mastodon init scripts*.
+We run one instance solely to handle the `scheduler` queue. Initially we had a `t4g.small` 
+instance processing all the queues (including scheduler), but, after looking at the load 
+on the queues for a few days, we realised our main instances were easily handling the 
+load on the queues the process, so the scheduler could be cost optimized. 
 
-You could try to integrate this into your webservers, but, for us, it was easier to 
-allocate a single instance which will process all queues, and then configure our web
-server launch template with a configuration which processes everything except the `scheduler`
-queue.
+We now use a `t2.micro` instance which puts it in the 
+[AWS EC2 free tier](https://aws.amazon.com/ec2/pricing/?loc=ft#Free_tier). We 
+made the following modification to the `mastodon-sidekiq.service` init script, which
+is the only mastodon init script enabled on that instance, to ensure it's only processing the
+scheduler queue, and is running only 5 threads (which easily handles the load we have); 
+
+```
+ExecStart=/home/mastodon/.rbenv/shims/bundle exec sidekiq -c 25
+```
+
+becomes
+
+```
+ExecStart=/home/mastodon/.rbenv/shims/bundle exec sidekiq -c 5 -q scheduler
+```
 
 #### Current Instance Type
 
-`t4g.small`
+`t2.micro`
+
+### Recent Changes
+
+* 2022-09-11 : Altered instance to focus only on the scheduler queue, which allows us to go from using a `t4g.small` to a `t2.micro`
 
 ### Main Instances
 
