@@ -86,6 +86,11 @@ To support multiple concurrent EC2 instances we would need a shared storage area
 includes S3 support, which made this a simple choice. The only part which was slightly confusing
 was the question about serving through our own domain (the easiest answer is to say 'No'). 
 
+One important point seems to be not to include a full-stop (`.`) in your bucket name. This seems
+to cause confusion inside the app or in the AWS interface and makes media uploads fail. This is
+not an AWS specific issue, I've seen the same problem with a GCP backed installation, so my
+suspicion is it's a problem in the Mastodon codebase.
+
 #### Scaling-up
 
 Mastodon provide [a page](https://docs.joinmastodon.org/admin/optional/object-storage-proxy/) on 
