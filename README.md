@@ -66,9 +66,15 @@ which is a core part of the Mastodon system, has [not recommended using Redis in
 since problems were reported back in 2018. I did try a MemoryDB Redis instance, and an ElastiCache clustered instance, and hit 
 the `CROSSSLOT` error mentioned in the bug, so we have to use a non-cluster configuration.
 
+We also, initially, had a cluster consisting of a primary and read replica for our Redis instance to support fault tolerance. 
+Clusters are, however, [not recommended by the Sidekiq creators](https://github.com/mperham/sidekiq/wiki/Using-Redis#architecture),
+and we've seen reports of Sidekiq issues caused by latency between nodes creating an inconsistent state. With this in mind
+we're not running a single Redis instance.
+
 There's also a parameter to change from the defaults. In the ElastiCache console you'll need to create a new
 parameter group and change the default value of `maxmemory-policy` from `volatile-lru` to `noeviction`. Using
 the `noeviction` policy is a [recommendation from Sidekiqs' authors](https://github.com/mperham/sidekiq/wiki/Using-Redis#memory).
+
 
 #### Scaling-up
 
@@ -76,7 +82,7 @@ ElastiCache will scale well beyond our needs by increasing the instance sizes, s
 
 #### Current Instance Type
 
-2x `cache.t4g.small` (primary + replica)
+1x `cache.t4g.small` (primary + replica)
 
 ### S3
 
@@ -136,7 +142,8 @@ ExecStart=/home/mastodon/.rbenv/shims/bundle exec sidekiq -c 5 -q scheduler
 
 ### Recent Changes
 
-* 2022-09-11 : Altered instance to focus only on the scheduler queue, which allows us to go from using a `t4g.small` to a `t2.micro`
+* 2022-11-23 : Called out issue with a Redis cluster.
+* 2022-11-09 : Altered instance to focus only on the scheduler queue, which allows us to go from using a `t4g.small` to a `t2.micro`
 
 ### Main Instances
 
