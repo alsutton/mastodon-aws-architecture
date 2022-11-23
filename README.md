@@ -69,7 +69,7 @@ the `CROSSSLOT` error mentioned in the bug, so we have to use a non-cluster conf
 We also, initially, had a cluster consisting of a primary and read replica for our Redis instance to support fault tolerance. 
 Clusters are, however, [not recommended by the Sidekiq creators](https://github.com/mperham/sidekiq/wiki/Using-Redis#architecture),
 and we've seen reports of Sidekiq issues caused by latency between nodes creating an inconsistent state. With this in mind
-we're not running a single Redis instance.
+we're now running a single Redis instance.
 
 There's also a parameter to change from the defaults. In the ElastiCache console you'll need to create a new
 parameter group and change the default value of `maxmemory-policy` from `volatile-lru` to `noeviction`. Using
