@@ -138,7 +138,7 @@ ExecStart=/home/mastodon/.rbenv/shims/bundle exec sidekiq -c 5 -q scheduler
 
 #### Current Instance Type
 
-`t2.micro`
+`t3.micro`
 
 ### Recent Changes
 
