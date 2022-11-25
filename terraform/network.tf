@@ -3,7 +3,7 @@
 #
 
 resource "aws_vpc" "mastodon-vpc" {
-    assign_generated_ipv6_cidr_block     = true
+    assign_generated_ipv6_cidr_block     = false
     enable_classiclink                   = false
     enable_classiclink_dns_support       = false
     enable_dns_hostnames                 = true
