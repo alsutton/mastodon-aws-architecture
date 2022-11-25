@@ -2,6 +2,7 @@
 # Network configuration
 #
 
+# VPC for hosting all the Mastodon resources.
 resource "aws_vpc" "mastodon-vpc" {
     assign_generated_ipv6_cidr_block     = false
     enable_classiclink                   = false
@@ -35,6 +36,8 @@ resource "aws_subnet" "mastodon-subnet-2" {
   availability_zone                     = "eu-west-2c"
 }
 
+# Network ACL allows everything in and out because we're using
+# security groups for restricting traffic
 resource "aws_network_acl" "mastodon-acl" {
     vpc_id = aws_vpc.mastodon-vpc.id
 
@@ -91,39 +94,4 @@ resource "aws_network_acl" "mastodon-acl" {
         aws_subnet.mastodon-subnet-1.id,
         aws_subnet.mastodon-subnet-2.id,
     ]
-}
-
-resource "aws_security_group" "mastodon-sg" {
-    description = "Mastodon VPC Security Group"
-    egress      = [
-        {
-            cidr_blocks      = [
-                aws_vpc.mastodon-vpc.cidr_block,
-            ]
-            description      = ""
-            from_port        = 0
-            ipv6_cidr_blocks = []
-            prefix_list_ids  = []
-            protocol         = "-1"
-            security_groups  = []
-            self             = true
-            to_port          = 0
-        },
-    ]
-    ingress     = [
-        {
-            cidr_blocks      = [
-                aws_vpc.mastodon-vpc.cidr_block,
-            ]
-            description      = ""
-            from_port        = 0
-            ipv6_cidr_blocks = []
-            prefix_list_ids  = []
-            protocol         = "-1"
-            security_groups  = []
-            self             = true
-            to_port          = 0
-        },
-    ]
-    vpc_id      = aws_vpc.mastodon-vpc.id
 }
