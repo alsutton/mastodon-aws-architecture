@@ -19,7 +19,7 @@ resource "aws_rds_cluster_instance" "mastodon-writer" {
     engine                                = "aurora-postgresql"
     engine_version                        = "13.7"
     identifier                            = "writer"
-    instance_class                        = "db.serverless"
+    instance_class                        = "db.t4g.medium"
     monitoring_interval                   = 0
     performance_insights_enabled          = false
     promotion_tier                        = 1
